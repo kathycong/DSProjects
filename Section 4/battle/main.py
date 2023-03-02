@@ -1,5 +1,6 @@
 from classes.game import Person, bcolors
 from classes.magic import spell
+from classes.inventory import Item
 
 #Create black magic
 fire = spell("Fire", 10, 100, "black")
@@ -18,10 +19,23 @@ magic = [{"name": "Fire", "cost": 10, "dmg": 100},
         {"name": "Blizzard", "cost": 10, "dmg": 100},
         {"name": "Meteor", "cost": 20, "dmg": 200}]
 
+#Create Some Item (section 4.41 )
+potion = Item("Potion", "potion", "Heals 50 HP", 50)
+hipotion = Item("Hi-Potion", "potion", "Heals 100 HP", 100)
+superpotion = Item("Super Potion", "potion", "Heals 500 HP", 500)
+elixer = Item("Elixer", "elixer", "Fully restores HP/MP of one party member", 999) #heals the max HP
+hielixer = Item("MegaElixer", "elixer", "Fully restores party's HP/MP", 999)
+
+grenade = Item("Grenade", "attack", "Deals 500 damage", 500)
+
+#adding a variable to simplify instantiate the players
+player_spells = [fire, thunder, blizzard, meteor, cure, cura]
+player_items = [potion, hipotion, superpotion, elixer, hielixer, grenade]
+
 #instatiated the person class
 #player magic
-player = Person(460, 65, 60, 34, [fire, thunder, blizzard, meteor, cure, cura])
-enemy = Person(1200, 65, 45, 25, [])
+player = Person(460, 65, 60, 34, player_spells, player_items)
+enemy = Person(1200, 65, 45, 25, [], [])
 
 #print(player.generate_damage())
 #print(player.generate_damage())
@@ -53,13 +67,17 @@ while running:
     #adding magic
     elif index == 1:
         player.choose_magic()
-        magic_choice = int(input("Choose magic:")) - 1
+        magic_choice = int(input("Choose magic: ")) - 1
 
         #Updated with below code
         #magic_dmg = player.generate_spell_damage(magic_choice)
         #reduce the magic point bey cost of that spell
         #spell = player.get_spell_name(magic_choice)
         #cost = player.get_spell_mp_cost(magic_choice) 
+        
+        #this should allow us to go back to the main menu
+        if magic_choice == -1:
+            continue
 
         spell = player.magic[magic_choice]
         magic_dmg =spell.generate_damage()
@@ -79,6 +97,23 @@ while running:
             #get the enemy to take the damage
             enemy.take_damage(magic_dmg)
             print(bcolors.OKBLUE + "\n" + spell.name + " deals", str(magic_dmg), "points of damage"  + bcolors.ENDC)
+
+    #adding items from section 4.41
+    elif index == 2:
+        player.choose_item()
+        item_choice = int(input("Choose item: ")) - 1
+
+        #this should allow us to go back to the main menu
+        if item_choice == -1:
+            continue
+
+        item = player.items[item_choice]
+
+        if item.type == "potion":
+            player.heal(item.prop)
+            print(bcolors.OKGREEN + "\n" + item.name + "heals for", str(item.prop), "HP" + bcolors.ENDC)
+            
+
 
     #now we want the enemy to attack us
     enemy_choice = 1
