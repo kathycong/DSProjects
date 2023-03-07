@@ -16,7 +16,7 @@ class bcolors:
 #need to initialise this class with a few parameters
 #this class contains statistics
 class Person:
-    def __init__(self, hp, mp, atk, df, magic, items):
+    def __init__(self, name, hp, mp, atk, df, magic, items):
         self.maxhp = hp
         self.hp = hp
         self.maxmp = mp
@@ -27,6 +27,7 @@ class Person:
         self.magic = magic #dictionary of magic spells 
         self.items = items
         self.actions = ["Attack", "Magic", "Items"]
+        self.name = name
 
 #need utilities method to handle the battle
 #methods are usually small
@@ -77,24 +78,31 @@ class Person:
 #we need more methods where it can choose either attack or magic
     def choose_action(self):
         i = 1
-        print("\n" + bcolors.OKBLUE + bcolors.BOLD + "ACTIONS" + bcolors.ENDC)
+        print("\n" + "    " + bcolors.BOLD + self.name + bcolors.ENDC)
+        print(bcolors.OKBLUE + bcolors.BOLD + "    ACTIONS:" + bcolors.ENDC)
         for item in self.actions:
-            print("    " + str(i) + ":", item)
+            print("        " + str(i) + ":", item)
             i += 1 
 
     def choose_magic(self):
         i = 1
-        print("\n" + bcolors.OKBLUE + bcolors.BOLD + "MAGIC" + bcolors.ENDC)
+        print("\n" + bcolors.OKBLUE + bcolors.BOLD + "    MAGIC" + bcolors.ENDC)
         for spell in self.magic:
-            print("    " + str(i) + ":", spell.name, "(cost:", str(spell.cost) + ")")
+            print("        " + str(i) + ":", spell.name, "(cost:", str(spell.cost) + ")")
             i += 1
 
     def choose_item(self):
         i = 1
-        print("\n" + bcolors.OKGREEN + bcolors.BOLD + "ITEMS:" + bcolors.ENDC)
+        print("\n" + bcolors.OKGREEN + bcolors.BOLD + "    ITEMS:" + bcolors.ENDC)
         for item in self.items:
-            print("    " + str(i) + ".", item["item"].name, ":", item["item"].description, " (x" + str(item["quantity"]) + ")")
+            print("        " + str(i) + ".", item["item"].name + ":", item["item"].description, " (x" + str(item["quantity"]) + ")")
             i += 1
+    
+    def get_stats(self):
+        print("                    _________________________              __________")
+        print(bcolors.BOLD + self.name +"   " + str(self.hp) + "/" + str(self.maxhp) + " |" + bcolors.OKGREEN + "███████████              " + bcolors.ENDC + bcolors.BOLD 
+            + "|    " + str(self.mp) + "/" + str(self.maxmp) +"   |" + bcolors.OKBLUE + "██████████" + bcolors.ENDC + "|")
+
 
 
 
