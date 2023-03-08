@@ -3,15 +3,15 @@ from classes.magic import spell
 from classes.inventory import Item
 
 #Create black magic
-fire = spell("Fire", 10, 100, "black")
-thunder = spell("Thunder", 12, 124, "black")
-blizzard = spell("Blizzard", 10, 100, "black")
-meteor = spell("Meteor", 20, 200, "black")
+fire = spell("Fire", 25, 600, "black")
+thunder = spell("Thunder", 25, 600, "black")
+blizzard = spell("Blizzard", 25, 600, "black")
+meteor = spell("Meteor", 40, 1200, "black")
 quake = spell("Quake", 14, 140, "black")
 
 #Create white magic
-cure = spell("Cure", 12, 120, "white")
-cura = spell("Cura", 18, 200, "white")
+cure = spell("Cure", 25, 620, "white")
+cura = spell("Cura", 32, 1500, "white")
 
 #each spell has a name2
 magic = [{"name": "Fire", "cost": 10, "dmg": 100},
@@ -37,10 +37,10 @@ player_items = [{"item" : potion, "quantity" : 15},  {"item": hipotion, "quantit
 
 #instatiated the person class
 #player magic
-player1 = Person("Valos:", 3260, 65, 60, 34, player_spells, player_items)
-player2 = Person("Nick :", 4160, 65, 60, 34, player_spells, player_items)
-player3 = Person("Robot:", 3089, 65, 60, 34, player_spells, player_items)
-enemy = Person("Magus:", 1200, 65, 45, 25, [], [])
+player1 = Person("Valos:", 3260, 132, 300, 34, player_spells, player_items)
+player2 = Person("Nick :", 4160, 188, 311, 34, player_spells, player_items)
+player3 = Person("Robot:", 3089, 174, 288, 34, player_spells, player_items)
+enemy = Person("Magus:", 11200, 701, 525, 25, [], [])
 
 players = [player1, player2, player3]
 
