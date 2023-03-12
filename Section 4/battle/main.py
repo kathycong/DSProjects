@@ -41,9 +41,13 @@ player_items = [{"item" : potion, "quantity" : 15},  {"item": hipotion, "quantit
 player1 = Person("Valos:", 3260, 132, 300, 34, player_spells, player_items)
 player2 = Person("Nick :", 4160, 188, 311, 34, player_spells, player_items)
 player3 = Person("Robot:", 3089, 174, 288, 34, player_spells, player_items)
-enemy = Person("Magus:", 11200, 701, 525, 25, [], [])
+
+enemy1 = Person("Imp  ", 1250, 130, 560, 325, [], [])
+enemy2 = Person("Magus", 11200, 701, 525, 25, [], []) #putting this
+enemy3 = Person("Imp  ", 1250, 130, 560, 325, [], [])
 
 players = [player1, player2, player3]
+enemies = [enemy1, enemy2, enemy3]
 
 
 #print(player.generate_damage())
@@ -72,7 +76,8 @@ while running:
         player.get_stats()
         print("\n")
 
-    enemy.get_enemy_stats()
+    for enemy in enemies:
+        enemy.get_enemy_stats()
 
     for player in players:
 
@@ -83,8 +88,9 @@ while running:
 
         if index == 0:
             dmg = player.generate_damage()
-            enemy.take_damage(dmg)
-            print("You attacked for", dmg, "points of damage.") #Enemy HP:", enemy.get_hp())
+            enemy = player.choose_target(enemies)
+            enemies[enemy].take_damage(dmg)
+            print("You attacked" + enemies[enemy].name + " for", dmg, "points of damage.") #Enemy HP:", enemy.get_hp())
 
         #adding magic
         elif index == 1:
@@ -117,8 +123,9 @@ while running:
                 print(bcolors.OKBLUE + "\n" + spell.name + " heals for", str(magic_dmg), "HP." + bcolors.ENDC)
             elif spell.type == "black":    
                 #get the enemy to take the damage
-                enemy.take_damage(magic_dmg)
-                print(bcolors.OKBLUE + "\n" + spell.name + " deals", str(magic_dmg), "points of damage"  + bcolors.ENDC)
+                enemy = player.choose_target(enemies)
+                enemies[enemy].take_damage(dmg)
+                print(bcolors.OKBLUE + "\n" + spell.name + " deals", str(magic_dmg), "points of damage to" + enemies[enemy].name  + bcolors.ENDC)
 
         #adding items from section 4.41
         elif index == 2:
@@ -155,15 +162,16 @@ while running:
                 print(bcolors.OKGREEN + "\n" + item.name + "fully restores HP/MP" + bcolors.ENDC)
 
             elif item.type == "attack":
-                enemy.take_damage(item.prop)
-                print(bcolors.FAIL + "/n" + item.name + "deals", str(item.prop), "points of damage" + bcolors.ENDC)
+                enemy = player.choose_target(enemies)
+                enemies[enemy].take_damage(dmg)
+                print(bcolors.FAIL + "/n" + item.name + "deals", str(item.prop), "points of damage to " + enemies[enemy].name + bcolors.ENDC)
 
 
     #now we want the enemy to attack us
     enemy_choice = 1
 
     target = random.randrange(0, 3)
-    enemy_dmg = enemy.generate_damage()
+    enemy_dmg = enemy[0].generate_damage()
 
     players[target].take_damage(enemy_dmg)
     print("Enemy attacks for", enemy_dmg) #, "Player HP", player.get_hp())
