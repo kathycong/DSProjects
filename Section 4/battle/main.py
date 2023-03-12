@@ -90,7 +90,12 @@ while running:
             dmg = player.generate_damage()
             enemy = player.choose_target(enemies)
             enemies[enemy].take_damage(dmg)
-            print("You attacked" + enemies[enemy].name + " for", dmg, "points of damage.") #Enemy HP:", enemy.get_hp())
+            print("You attacked" + enemies[enemy].name.replace(" ", "") + " for", dmg, "points of damage.") #Enemy HP:", enemy.get_hp())
+
+            #removing enemy with 0 hp from the enemy list
+            if enemies[enemy].get_hp == 0:
+                print(enemies[enemy].name + " has died.")
+                del enemies[enemy]
 
         #adding magic
         elif index == 1:
@@ -121,11 +126,17 @@ while running:
             if spell.type == "white" :
                 player.heal(magic_dmg)
                 print(bcolors.OKBLUE + "\n" + spell.name + " heals for", str(magic_dmg), "HP." + bcolors.ENDC)
+
             elif spell.type == "black":    
                 #get the enemy to take the damage
                 enemy = player.choose_target(enemies)
                 enemies[enemy].take_damage(dmg)
-                print(bcolors.OKBLUE + "\n" + spell.name + " deals", str(magic_dmg), "points of damage to" + enemies[enemy].name  + bcolors.ENDC)
+                print(bcolors.OKBLUE + "\n" + spell.name + " deals", str(magic_dmg), "points of damage to" + enemies[enemy].name.replace(" ", "")  + bcolors.ENDC)
+
+                #removing enemy with 0 hp from the enemy list
+                if enemies[enemy].get_hp == 0:
+                    print(enemies[enemy].name + " has died.")
+                    del enemies[enemy]
 
         #adding items from section 4.41
         elif index == 2:
@@ -164,28 +175,52 @@ while running:
             elif item.type == "attack":
                 enemy = player.choose_target(enemies)
                 enemies[enemy].take_damage(dmg)
-                print(bcolors.FAIL + "/n" + item.name + "deals", str(item.prop), "points of damage to " + enemies[enemy].name + bcolors.ENDC)
+                print(bcolors.FAIL + "/n" + item.name + "deals", str(item.prop), "points of damage to " + enemies[enemy].name.replace(" ", "") + bcolors.ENDC)
 
+                      #removing enemy with 0 hp from the enemy list
+                if enemies[enemy].get_hp == 0:
+                    print(enemies[enemy].name.replace(" ", "") + " has died.")
+                    del enemies[enemy]
 
     #now we want the enemy to attack us
     enemy_choice = 1
 
     target = random.randrange(0, 3)
-    enemy_dmg = enemy[0].generate_damage()
+    enemy_dmg = enemies[0].generate_damage()
 
     players[target].take_damage(enemy_dmg)
     print("Enemy attacks for", enemy_dmg) #, "Player HP", player.get_hp())
 
     print("===================================================")
-    print("Enemy HP:", bcolors.FAIL + str(enemy.get_hp()) + "/" + str(enemy.get_max_hp()) + bcolors.ENDC + "\n")
-    
-#need to determine if the battle is over when stats are 0
-    if enemy.get_hp() == 0:
+    print("Enemy HP:", bcolors.FAIL + str(enemies[enemy].get_hp()) + "/" + str(enemies[enemy].get_max_hp()) + bcolors.ENDC + "\n")
+
+    defeated_enemies = 0
+    defeated_players = 0
+
+    for enemy in enemies:
+        if enemy.get_hp == 0:
+            defeated_enemies += 1
+
+    for player in players:
+        if player.get_hp == 0:
+            defeated_players += 1
+
+    if defeated_enemies == 2:
         print(bcolors.OKGREEN + "You win!" + bcolors.ENDC)
         running = False
-    elif player.get_hp()  == 0:
+
+    elif defeated_enemies == 2:
         print(bcolors.FAIL + "Your enemy has defeated you!" + bcolors.ENDC)
         running = False
+
+#need to determine if the battle is over when stats are 0
+    #if enemy.get_hp() == 0:
+     #   print(bcolors.OKGREEN + "You win!" + bcolors.ENDC)
+      #  running = False
+    
+   # elif player.get_hp()  == 0:
+    #    print(bcolors.FAIL + "Your enemy has defeated you!" + bcolors.ENDC)
+    #    running = False
 
 #to defeat the enemy we need to get the player to do more things like heal or do more damage
 #choosing the magic
