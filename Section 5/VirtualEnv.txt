@@ -1,0 +1,22 @@
+Using Virtualenv to create a virtual environment
+
+##In bash terminal type the ff:
+pip3 install virtualenv
+
+##creating a virtual environment
+1. go to a specific directory
+2. create and named environment with below command
+'virtualenv testenv'
+3. activate virtual env
+- source a file from the virtual env created with below command
+source testenv/bin/activate
+
+4. deactivating virtual env
+- type 'deactivate' in the terminal
+
+https://stackoverflow.com/questions/990754/how-to-leave-exit-deactivate-a-python-virtualenv
+
+note: all the packages will be installed in the virtual environment will be installed on this environment.
+once i close the terminal with the active environment and open the terminal it will go back to the global python.
+Installing package globally will be accessible to the environment?
+
