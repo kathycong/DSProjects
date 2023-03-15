@@ -1,22 +1,27 @@
 #Introduction to Request
 #pip3 install requests
+#pip3 install pillow
 
 import requests
+from  io import BytesIO
+from PIL import Image
 
-params = {"q": "pizza"}
+r = requests.get("https://wallpapercave.com/wp/TuVhQdr.jpg")
 
-r = requests.get("http://bing.com/search", params=params)
 print("Status:", r.status_code) #returns status code 200 which refers to OK
-print(r.url) #getting the url
 
-#note:
-#HTTP Status codes provides a description of each code
-#https://www.restapitutorial.com/httpstatuscodes.html
+#creating an image from the binary data that we get
+image = Image.open(BytesIO(r.content))
 
-#getting the content of the url
-print(r.text)
+print(image.size, image.format, image.mode)
+path = "./Section 6/image" + image.format
 
-#loading file into html
-f = open("./Section 6/page.html", "w+") #write mode
-f.write(r.text)
+
+#saving the image into local directory
+
+try:
+    image.save(path, image.format)
+except IOError:
+    print("Cannot save image.")
+
 
