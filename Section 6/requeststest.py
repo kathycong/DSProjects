@@ -1,10 +1,13 @@
 import requests
+import simplejson as json
 
-my_data = {"name": "Kath", "email": "kath@example.com"}
-r = requests.post("https://www.w3schools.com/php/welcome.php", data = my_data)
+#creating a payload of data which refers to data being sent to the URL
+url = "https://www.googleapis.com/urlshortener/v1/url"
+payload = {"longurl": "http://example.com"}
+headers = {"ContentType": "application/json" }
 
-f = open("Section 6/myfile.html", "w+")
-f.write(r.text)
+r = requests.post(url, json=payload)
 
+print(json.loads(r.text)["error"]["code"])
 
 
