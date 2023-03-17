@@ -18,5 +18,12 @@ for item in links:
     if item_text and item_href:
         print(item_text)
         print(item_href)
-        print("Parent:", item.find("a").parent)
+        #find the parent of the item
+        print("Parent:", item.find("a").parent.parent.find("p").text)
+
+        #find the children of item element
+        children = item.find("h2")
+        print("Next sibling of the h2:", children.sibling)
+
+
 
