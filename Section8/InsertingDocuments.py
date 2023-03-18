@@ -31,6 +31,14 @@ user1 = {"username": "anothe_user", "password": "myverysecurepassword", "favorit
 
 user_id = users.insert_one(user1).inserted_id
 
+#inserting multiple documents
+
+users = [{"username": "third", "password": "12345"}, {"username": "red", "password": "blue"}]
+
+Users = db.users
+
+inserted = Users.insert_many(users)
+inserted.inserted_ids 
 
 
 
