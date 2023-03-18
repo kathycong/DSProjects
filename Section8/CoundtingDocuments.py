@@ -31,3 +31,8 @@ Users.find({"date": {"$exists" : True}}).count()
 #find any documents that is not equal to yetanother using $ne which means notequal
 Users.find({"date": {"$ne" : "yetanother"}}).count()
 
+#creating index to optimise your database
+db.users.create_index([("username", pymongo.ASCENDING)])
+
+Users.find({"username": "nick"})
+
