@@ -7,16 +7,18 @@
 import web
 
 urls = (
-    '/(.*)', 'index'
+    '/(.*)/(.*)', 'index'
 )
+
+#telling python where to find our template
+
+render = web.template.render("resources/")
 #this is how we instantiate
 app = web.application(urls, globals())
 class index:
-    def GET(self, name):
-        #print("Hello", name, '. How are you today?')
-
+    def GET(self, name, age):
         #to return something use this comand
-        return "<h1>Hello" + name + '. </h1> How are you today?'
+        return render.main(name, age)
 
 if __name__ == "__main__":
     app.run()
