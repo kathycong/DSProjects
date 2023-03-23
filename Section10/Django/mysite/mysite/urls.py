@@ -19,7 +19,8 @@ from blog import views as blog_views
 
 urlpatterns = [
     #creating routes using regex
-    url(r'^post/$', blog_views.post),
+    url(r'^post/(.*)$', blog_views.post),
+     url(r'^about/$', blog_views.about),
     url(r'^$', blog_views.index),
     path("admin/", admin.site.urls),
 ]
