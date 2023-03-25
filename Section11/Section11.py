@@ -1,4 +1,4 @@
-#11.102
+#11.102 Installation of Qt and creating a basic cute app
 
 #Installing Qt qt.io
 #in terminal typed "brew search qt5"

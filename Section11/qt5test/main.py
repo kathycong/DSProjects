@@ -1,29 +1,19 @@
 #!usr/bin/python3
 
+import os, sys
 from PyQt5.QtCore import *
-from PyQt5.QtWidgest import *
-
-#Qwidget inherits from the Page class
-class Page(Qwidget): 
-    def __init__(self, parent = None):
-        super(Page, self).__init__(parent)
-
-        my_label = Qlabel("this is my label")
-        layout = QVBoxLayout()
-
-        layout.addWidget(my_label)
-
-        mainLayout = QGridLayout()
-        mainLayout.addLayout(layout, 0, 1)
-
-        self.Layout(mainLayout)
-        self.setWindowTitle("my First Qt App")
+from PyQt5.QtGui import *
+from PyQt5.QtQuick import *
+from PyQt5.Qt import *
 
 if __name__ == "__main__":
-    import sys
     app = QApplication(sys.argv)
 
-    window = Page()
+    #create an engine that connects that connects to qml application
+    engine = QQmlApplicationEngine()
+    engine.load(QUrl.fromLocalFile("main.qml"))
+
+    window = engine.rootObjects()[0]
     window.show()
 
     sys.exit(app.exec())
