@@ -11,25 +11,21 @@ class MainWindow(Qwidget):
 
     #this will run all our code, init_ui
     def init_ui(self):
-        label = QLabel("Hi there, I'm a label. Woot")
-        okButton = QPushButton("OK")
-        cancelButton = QPushButton("Cancel")
+        label = QLabel("Name: ")
+        name_input = QLineEdit()
+        button = QPushButton("Set Name")
 
-        horizontal = QHBoxLayout()
-        horizontal.addStretch()
+        h = QHBoxLayout()
+        h.addStretch(1) #removed this later
+        h.addWidget(label)
+        h.addWidget(name_input)
 
-        #example of a widgeth is a push button, notebook and etc
-        #use this method to stuff things to the layout
-        horizontal.addWidget(okButton)
-        horizontal.addWidget(cancelButton)
+        v = QVBoxLayout()
+        v.addStretch(1) 
+        v.addLayout(h)
+        v.addWidget(button)
 
-        vertical = QVBoxLayout()
-        vertical.addWidget(label)
-        vertical.addStretch(1)
-        vertical.addLayout(horizontal)
-
-        #setting which lay out to use
-        self.setLayout(vertical)
+        self.setLayout(v)
 
         self.setWindowTitle("Horizontal Layout")
         self.show()
