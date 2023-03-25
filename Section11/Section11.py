@@ -5,3 +5,5 @@
 
 # brew install qt
 #pip3 install sip pyqt@5
+
+#11.105
