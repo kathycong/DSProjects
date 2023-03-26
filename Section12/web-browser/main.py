@@ -52,14 +52,15 @@ class App(QFrame):
         self.Toolbar = QWidget()
         self.ToolbarLayout = QHBoxLayout()
         self.addressbar = AddressBar()
+        self.AddTabButton = QPushButton("+")
+
+        self.addressbar.returnPressed.connect(self.BrowseTo)
+
+        # New tab button
+        self.AddTabButton.clicked.connect(self.AddTab)
 
         self.Toolbar.setLayout(self.ToolbarLayout)
         self.ToolbarLayout.addWidget(self.addressbar)
-
-        # New tab button
-        self.AddTabButton = QPushButton("+")
-        self.AddTabButton.clicked.connect(self.AddTab)
-        
         self.ToolbarLayout.addWidget(self.AddTabButton)
 
         #set main view
@@ -115,7 +116,24 @@ class App(QFrame):
         self.container.layout.setCurrentWidget(self.tabs[i])
 
 
+    def BrowseTo(self):
+        text = self.addressbar.text()
+        print(text)
 
+        i = self.tabbar.currentIndex()
+        tab = self.tabbar.tabData(i)
+        wv = self.findChild(QWidget, tab).content
+
+        if "http" not in text:
+            if "." not in text:
+                url = "https://google.com/#q=" + text
+            else: 
+                url = "http://" + text
+        else:
+            url = text
+
+
+        wv.load(QUrl.fromUserInput(url))
 
 
 
