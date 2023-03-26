@@ -38,7 +38,7 @@ class App(QFrame):
 
         self.tabbar = QTabBar(movable = True, tabsClosable = True)
         self.tabbar.tabCloseRequested.connect(self.CloseTab) #this is a signal not a method. sends a connection which tabl should be closed
-
+        self.tabbar.tabBarClicked.connec(self.SwitchTab)
 
         #setting the current index of the tab. Telling which tab is active
         self.tabbar.setCurrentIndex(0)
@@ -105,8 +105,15 @@ class App(QFrame):
         self.tabbar.addTab("New Tab")
         self.tabbar.setTabData(i, "tab" + str(i))
         self.tabbar.setCurrentIndex(i)
+        self.tabCount += 1
 
-        pass
+    def SwitchTab(self, i):
+        td = self.tabbar.tabData(i)
+        print("tab: ", td)
+        self.container.layout.setCurrentWidget(self.tabs[i])
+
+
+
 
 
 
