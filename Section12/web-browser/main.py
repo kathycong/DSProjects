@@ -52,6 +52,7 @@ class App(QFrame):
 
         #Create AddressBar
         self.Toolbar = QWidget()
+        self.Toolbar.setObjectName("Toolbar")
         self.ToolbarLayout = QHBoxLayout()
         self.addressbar = AddressBar()
         self.AddTabButton = QPushButton("+")
@@ -227,6 +228,9 @@ class App(QFrame):
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     window = App()
+
+    with open("style.css", "r") as style:
+        app.setStyleSheet(style.read())
 
     sys.exit(app.exec_())
 
