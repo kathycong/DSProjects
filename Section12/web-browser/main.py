@@ -6,7 +6,6 @@ from PyQt5.QtWidgets import (QApplication, QWidget, QVBoxLayout, QHBoxLayout,
                              QPushButton, QLabel, QLineEdit, QTabBar, 
                              QFrame, QStackedLayout, QTabWidget)
 
-
 from PyQt5.QtGui import QIcon, QWindow, QImage
 from PyQt5.QtCore import *
 from PyQt5.QtWebEngine import *
@@ -115,6 +114,7 @@ class App(QFrame):
         #adding tab name
         self.tabs[i].content.titleChanged.connect(lambda: self.SetTabContent(i, "title"))
         self.tabs[i].content.iconChanged.connect(lambda: self.SetTabContent(i, "icon"))
+        self.tabs[i].content.urlChanged.connect(lambda: self.SetTabContent(i, "url"))
 
         #Add webview to tabs layout
         self.tabs[i].layout.addWidget(self.tabs[i].content)
@@ -140,10 +140,13 @@ class App(QFrame):
 
     def SwitchTab(self, i):
         tab_data = self.tabbar.tabData(i)
-        print("tab: ", tab_data)
-
-        tab_content = self.findChild(QWidget, tab_data)
-        self.container.layout.setCurrentWidget(self.tabs[i])
+        #print("tab: ", tab_data)
+        if self.tabbar.tabData(i):
+            tab_data = self.tabbar.tabData(i)["object"]
+            tab_content = self.findChild(QWidget, tab_data)
+            self.container.layout.setCurrentWidget(self.tabs[i])
+            new_url = tab_content.content.url().toString()
+            self.addressbar.setText(new_url)
 
 
     def BrowseTo(self):
@@ -178,6 +181,13 @@ class App(QFrame):
         count = 0
         running = True
 
+        current_tab = self.tabbar.tabData(self.tabbar.currentIndex())["object"]
+
+        if current_tab == tab_name and type == "url":
+            self.findChild(QWidget, tab_name).content.url().toString()
+            self.addressbar.setText(new_url)
+            return False
+        
         while running:
             tab_data_name = self.tabbar.tabData(count)
 
