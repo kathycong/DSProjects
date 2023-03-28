@@ -4,9 +4,10 @@ import json
 
 from PyQt5.QtWidgets import (QApplication, QWidget, QVBoxLayout, QHBoxLayout,
                              QPushButton, QLabel, QLineEdit, QTabBar, 
-                             QFrame, QStackedLayout, QTabWidget)
+                             QFrame, QStackedLayout, QTabWidget, QShortcut, QkeySequenceEdit,
+                             QKeySequence)
 
-from PyQt5.QtGui import QIcon, QWindow, QImage
+from PyQt5.QtGui import QIcon, QWindow, QImage, QKeySequence
 from PyQt5.QtCore import *
 from PyQt5.QtWebEngine import *
 
@@ -26,6 +27,7 @@ class App(QFrame):
         set.setBaseSize(1366, 768)
         set.setMinimumSize(1366, 768)
         self.CreateApp()
+        self.setWindowIcon(QIcon("logo.png"))
 
     #this where we are doing stuff
     #setting up our main window
@@ -44,6 +46,14 @@ class App(QFrame):
         #setting the current index of the tab. Telling which tab is active
         self.tabbar.setCurrentIndex(0)
         self.tabbar.setDrawBase(False)
+        self.tabbar.setLayoutDirection(Qt.LeftToRight)
+        self.tabbar.setElideMode(Qt.ElideLeft)
+
+        self.shortcutNewTab = QShortcut(QKeySequence("Ctrl+T"), self)
+        self.shortcutNewTab.activated.connect(self.AddTab)
+
+        self.shortcutReload = QShortcut(QKeySequence("Ctrl+R"), self)
+        self.shortcutReload.activated.connect(self.ReloadPage)
 
         #Keep track of tabs
         self.tabCount = 0
