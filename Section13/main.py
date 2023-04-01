@@ -13,12 +13,9 @@ deaths = [1.2, 1.7, 1.8, 2.2, 2.5, 2.7, 2.9, 3, 3.1, 3.3, 3.5, 3.8, 4.0, 4.3]
 print(deaths)
  
 #adding rgb colors
-plt.plot(years, pops, '--', color=(255/255, 100/255, 100/255))
-plt.plot(years, deaths, color=(.6, .6, 1))
-plt.ylabel("Population in billions")
-plt.xlabel("Popultion growth by year")
-plt.title("Population Growth")
-
+lines = plt.plot(years, pops, years, deaths)
+plt.grid(True) #add a grid in the graph
+plt.setp(lines, color =(1, .4, .4), marker ="+")
 plt.show()
 
 
