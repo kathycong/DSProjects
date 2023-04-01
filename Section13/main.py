@@ -2,20 +2,10 @@
 
 import matplotlib.pyplot as plt
 
-years = [1950,
-         1955, 1960, 1965, 1970, 1975, 1980, 1985, 1990, 1995, 2000, 
-         2005, 2010, 2015]
+labels = ['Python', 'C++', 'Ruby', 'Java', 'PHP', 'Perl']
+sizes = [33, 52, 12, 17, 62, 48]
+separated = (.1, .3, 0, 0, .6, 0)
 
-pops = [2.5, 2.7, 3.0, 3.3, 3.6,
-        4.0, 4.4, 4.8, 5.3, 5.7, 6.1, 6.5, 6.9, 7.3]
-
-deaths = [1.2, 1.7, 1.8, 2.2, 2.5, 2.7, 2.9, 3, 3.1, 3.3, 3.5, 3.8, 4.0, 4.3]
-print(deaths)
- 
-#adding rgb colors
-lines = plt.plot(years, pops, years, deaths)
-plt.grid(True) #add a grid in the graph
-plt.setp(lines, color =(1, .4, .4), marker ="+")
+plt.pie(sizes, labels = labels, autopct='%1.1f%%', explode = separated)
+plt.axis('equal')
 plt.show()
-
-
