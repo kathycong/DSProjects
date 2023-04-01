@@ -18,20 +18,29 @@ index = np.arange(col_count)
 k1 = plt.bar(index, korea_scores, bar_width, 
              alpha =0.4,
              label = 'Korea')
+
 c1 = plt.bar(index+0.1, canada_scores, bar_width,
              alpha =0.4,
              label = 'Canada')
+
 ch1 = plt.bar(index +0.2, china_scores, bar_width,
               alpha =0.4,
              label = 'China')
+
 f1 = plt.bar(index+0.3, france_scores, bar_width,
               alpha =0.4,
              label = 'France')
+
 plt.ylabel("Mean scire in PISA 2012")
 plt.xlabel("Subjects")
 plt.title("Test Scores by Country")
 plt.xticks(index + 0.3/2, ("Mathematics", "Reading", "Science"))
 plt.legend()
 plt.grid(True)
+
+for item in k1:
+    print(item.get_height())
+    print(item.get_width())
+    print(item.get_x())
 plt.show()
 
