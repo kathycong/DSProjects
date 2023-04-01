@@ -2,22 +2,19 @@
 #pip3 install pandas
 
 import matplotlib.pyplot as plt
+import numpy as np
 import pandas as pd
 
-raw_data = {'names': ['Nick', 'Panda', 'S', 'Ari', 'Valos'],
-            'jan_ir': [143, 122, 101, 106, 365],
-            'feb_ir': [143, 122, 101, 106, 365], 
-            'mar_ir': [143, 122, 101, 106, 365]  }
+col_count = 3
 
-df = pd.DataFrame(raw_data, columns = ['names', 'jan_ir', 'feb_ir', 'mar_ir'])
+korea_scores = (554, 536, 538)
+canada_scores = (518, 523, 525)
+china_scores = (613, 570, 580)
+france_scores = (495, 505, 499)
 
-df['total_ir'] = df['jan_ir'] + df['feb_ir'] + df['mar_ir']
+index = np.arange(col_count)
 
-color = [(1, .4, .4), (1, .6, 1), (.5, .3, 1), (.3, 1, .5), (.7, .7, .2)]
-
-plt.pie(df['total_ir'],
-        labels=df['names'],
-        colors = color,
-        autopct='%1.1f%%')
-plt.axis('equal')
+k1 = plt.bar(index, korea_scores, .5)
+plt.grid(True)
 plt.show()
+
