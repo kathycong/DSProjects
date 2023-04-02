@@ -63,7 +63,8 @@ def initSpeech():
 
     print('Your command:')
     print(command)
-    if command == "quit":
+    if command in ["quit", "exit", "bye", "goodbye"]:
+        global running #to make running varable global and access within the below if statement
         running = False
 
     cmd.discover(command)
