@@ -1,5 +1,8 @@
 import subprocess
 import os
+import requests
+from bs4 import BeautifulSoup
+from get_answer import Fetcher
 
 class Commander:
     def __init__(self):
