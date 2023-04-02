@@ -25,8 +25,19 @@ class Fetcher:
         soup = BeautifulSoup(self.driver.page_source, "html.parser")
         answer = soup.find_all(class_ = "_sPg")[0]
         #print(answer.get_text())
-        return answer.get_text()
+        
+        with open("test.html", "w+") as f:
+            f.write(str(soup))
+            f.close()
+
+        if not answer:
+            answer = soup.find_all(class_ ="_m3b") #can changethis to  _XWk
+
+        if not answer:
+            answer = "Is dont' know."
+
         self.driver.quit()
+        return answer[0].get_text()
 
         
         
