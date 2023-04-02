@@ -9,6 +9,10 @@
 import pyaudio
 import wave
 import speech_recognition as sr
+import subprocess
+
+def say(text):
+    subprocess.call('say' + text, shell = True)
 
 def play_audio(filename):
     chunk = 1024
@@ -55,6 +59,7 @@ def initSpeech():
 
     print('Your command:')
     print(command)
+    say('You said: '+ command)
 
 initSpeech()
 
