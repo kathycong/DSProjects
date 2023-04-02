@@ -8,7 +8,7 @@
 
 import pyaudio
 import wave
-
+import speech_recognition as sr
 
 def play_audio(filename):
     chunk = 1024
@@ -32,5 +32,30 @@ def play_audio(filename):
     stream.close()
     pa.terminate()
 
-play_audio("./audio/case-closed-531.wav")
+#specch recogniser
+r = sr.Recognizer()
+
+def initSpeech():
+    print("Listening...")
+    play_audio("./audio/good-things-happen-547.wav")
+
+    with sr.Microphone() as source:
+        print("say Something")
+        audio = r.listen(source)
+
+    play_audio("./audio/case-closed-531.wav")
+
+    command = ""
+
+    #a fail safe if the recognizer can't understand what we are saying
+    try:
+        command = r.recognize_google(audio)
+    except:
+        print("Couldn't understand you, bro")
+
+    print('Your command:')
+    print(command)
+
+initSpeech()
+
 
