@@ -19,6 +19,10 @@ class Commander:
             app = text.split(" ", 1)[-1] #take off the first word and split on the first space
             self.respond("Opening " + app)
             os.system("open -a" + app + ".app") #be able to launch any app
+        else:
+            f = Fetcher("https://www.google.com/search?q=how+to+make+a+pie&rlz=1C5CHFA_enNZ1022NZ1022&oq=" + text)
+            answer = f.lookup()
+            self.respond(answer)
 
 
     def respond(self, response):

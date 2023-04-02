@@ -14,7 +14,6 @@ class Fetcher:
         self.driver = webdriver.PhantomJS() #a javascript browser install in 'brew install phantomjs'
         self.driver.wait = WebDriverWait(self.driver, 5) #make the dirver wait for 5 seconds
         self.url = url
-        self.lookup()
 
     def lookup(self):
         self.driver.get(self.url)
@@ -24,7 +23,10 @@ class Fetcher:
             print("Failed Bro")
 
         soup = BeautifulSoup(self.driver.page_source, "html.parser")
-        print(soup)
+        answer = soup.find_all(class_ = "_sPg")[0]
+        #print(answer.get_text())
+        return answer.get_text()
+        self.driver.quit()
 
         
         
